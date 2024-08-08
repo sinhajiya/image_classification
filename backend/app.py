@@ -1,14 +1,16 @@
 from flask import Flask, request, render_template
-from tensorflow.keras.models import load_model
+from keras.models import load_model
 import numpy as np
 import cv2
 import tensorflow as tf
 import os
 
+os.environ['PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION'] = 'python'
+
 app = Flask(__name__, template_folder='frontend', static_folder='frontend')
 
 # Load the trained model from your local file
-model = load_model('content/img_classification/models/imageclassifier_happy-sad.h5')
+model = load_model('E:\my_codes\image_classification\image_classification\content\img_classification\models\model.h5')
 
 def predict_image(image_path):
     img = cv2.imread(image_path)
