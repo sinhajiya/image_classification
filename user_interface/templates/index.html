@@ -30,19 +30,17 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Upload an Image to Predict</h1>
-        <form method="POST" enctype="multipart/form-data">
-            <input type="file" name="image" accept="image/*">
-            <button type="submit">Predict</button>
-        </form>
-        {% if image_path %}
-        <div class="result">
-            <img src="{{ image_path }}" alt="Uploaded Image">
-            <p class="prediction">Prediction: {{ prediction }}</p>
-        </div>
-        {% endif %}
-    </div>
+    <h1>Image Classifier: Happy or Sad?</h1>
+
+    <form method="POST" action="/upload" enctype="multipart/form-data">
+        <input type="file" name="image">
+        <button type="submit">Upload</button>
+    </form>
+
+    {% if prediction %}
+        <h2>Prediction: {{ prediction }}</h2>
+        <img src="{{ image_path }}" alt="Uploaded Image" style="max-width: 300px;">
+    {% endif %}
 </body>
 </html>
 

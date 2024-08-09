@@ -20,20 +20,25 @@ def predict_image(image_path):
     else:
         return "HAPPY"
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 
-def home():
+def index():
     return render_template('index.html')
 
 
+@app.route('/upload', methods=['POST'])
 def upload_predict():
-    if request.method == 'POST':
-        image_file = request.files["image"]
-        if image_file:
-            image_path = os.path.join('static', image_file.filename)
-            image_file.save(image_path)
-            prediction = predict_image(image_path)
-            return render_template('index.html', prediction=prediction, image_path=image_path)
+    image_file = request.files.get('image')
+    if image_file:
+        image_path = os.path.join('static', image_file.filename)
+        image_file.save(image_path)
+
+        # Assuming predict_image() returns a string like 'happy' or 'sad'
+        prediction = predict_image(image_path)
+
+        # Pass the prediction to the template
+        return render_template('index.html', prediction=prediction, image_path=image_path)
+
     return render_template('index.html', prediction=None, image_path=None)
 
 
