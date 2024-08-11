@@ -8,17 +8,32 @@
 
 </head>
 <body>
-    <h1>Image Classifier: Happy or Sad?</h1>
-
-    <form method="POST" action="/upload" enctype="multipart/form-data">
-        <input type="file" name="image">
-        <button type="submit">Upload</button>
-    </form>
-
-    {% if prediction %}
-        <h2>Prediction: {{ prediction }}</h2>
-        <img src="{{ image_path }}" alt="Uploaded Image" style="max-width: 300px;">
-    {% endif %}
+    <div class="container">
+        <div class="left-half">
+            <h3>EMOTION CLASSIFIER</h3>
+            <p>This is a classifier made to classify if the person in the image is happy or sad.</p>
+        </div>
+        <div class="right-half">
+            <form method="POST" action="/upload" enctype="multipart/form-data">
+                <input type="file" name="image">
+                <button type="submit">Upload</button>
+            </form>
+            <div id="image-preview">
+                {% if image_path %}
+                <img src="{{ image_path }}" alt="Uploaded Image">
+                <p>{{ prediction }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <script>
+        function previewImage(event) {
+            const imagePreview = document.getElementById('image-preview');
+            imagePreview.innerHTML = ''; // Clear any previous content
+            const imgElement = document.createElement('img');
+            imgElement.src = URL.createObjectURL(event.target.files[0]);
+            imagePreview.appendChild(imgElement);
+        }
+    </script>
 </body>
 </html>
-

@@ -20,7 +20,7 @@ def predict_image(image_path):
     else:
         return "HAPPY"
 
-@app.route('/')
+@app.route('/')    #Defines the route for the homepage.
 
 def index():
     return render_template('index.html')
